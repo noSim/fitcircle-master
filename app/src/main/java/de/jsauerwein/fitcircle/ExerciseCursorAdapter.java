@@ -91,8 +91,8 @@ public class ExerciseCursorAdapter extends CursorAdapter {
             viewHolder.nameView.setText(name);
             viewHolder.poseView.setImageResource(this.exerciseIcons[typ - 1]);
 
-            Cursor toolsCursor = context.getContentResolver().query( Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"),null,null,null,null);
-            Log.d("Simon",toolsCursor.getColumnName(toolsCursor.getColumnIndex("tools")));
+            //Cursor toolsCursor = context.getContentResolver().query( Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"),null,null,null,null);
+            //Log.d("Simon",toolsCursor.getColumnName(toolsCursor.getColumnIndex("tools")));
         }
         else
         {

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
+        android:id="@+id/main_trainingschedule_exercise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@color/grey"
+        >
+
+    <ImageView
+            android:id="@+id/main_trainingschedule_workout_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/pose28"
+            android:layout_margin="4dp"
+            android:background="@color/light_blue"
+     />
+
+    <TextView
+            android:id="@+id/main_trainingschedule_workout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_trainingschedule_workout_type"
+            android:textSize="@dimen/txt_size_tilte"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="4dp"
+            android:text="Example"
+            />
+
+    <TextView
+            android:id="@+id/main_trainingschedule_difficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_trainingschedule_workout_type"
+            android:layout_below="@id/main_trainingschedule_workout_name"
+            android:text="2"
+            android:padding="4dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/main_trainingschedule_util_type"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tools_image_row_heigt"
+            android:layout_toRightOf="@id/main_trainingschedule_workout_type"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_below="@id/main_trainingschedule_difficulty"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                    android:id="@+id/main_trainingschedule_tool_mat"
+                    android:layout_width="@dimen/tools_image_size"
+                    android:layout_height="@dimen/tools_image_size"
+                    android:layout_margin="4dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tool1"
+                    android:background="@color/blue"
+                    />
+
+            <ImageView
+                    android:id="@+id/main_trainingschedule_tool_expander"
+                    android:layout_width="@dimen/tools_image_size"
+                    android:layout_height="@dimen/tools_image_size"
+                    android:layout_margin="4dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tool2"
+                    android:background="@color/blue"
+                    />
+
+            <ImageView
+                    android:id="@+id/main_trainingschedule_tool_ball"
+                    android:layout_width="@dimen/tools_image_size"
+                    android:layout_height="@dimen/tools_image_size"
+                    android:layout_margin="4dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tool3"
+                    android:background="@color/blue"
+                    />
+
+            <ImageView
+                    android:id="@+id/main_trainingschedule_tool_chair"
+                    android:layout_width="@dimen/tools_image_size"
+                    android:layout_height="@dimen/tools_image_size"
+                    android:layout_margin="4dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tool4"
+                    android:background="@color/blue"
+                    />
+        </LinearLayout>
+</RelativeLayout>
+</FrameLayout>

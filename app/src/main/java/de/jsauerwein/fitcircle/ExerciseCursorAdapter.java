@@ -1,5 +1,6 @@
 package de.jsauerwein.fitcircle;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -76,6 +77,10 @@ public class ExerciseCursorAdapter extends CursorAdapter {
         viewHolder.poseView = (ImageView) view.findViewById(R.id.main_trainingschedule_workout_type);
         viewHolder.nameView = (TextView) view.findViewById(R.id.main_trainingschedule_workout_name);
         viewHolder.difficultyView = (TextView) view.findViewById(R.id.main_trainingschedule_difficulty);
+        viewHolder.tool1 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_mat);
+        viewHolder.tool2 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_expander);
+        viewHolder.tool3 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_ball);
+        viewHolder.tool4 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_chair);
         view.setTag(viewHolder);
         return view;
     }
@@ -84,15 +89,43 @@ public class ExerciseCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         if (cursor != null && cursor.getColumnCount() >= 4) {
-            String name = cursor.getString(2);
-            String difficulty = cursor.getString(3);
-            int typ = cursor.getInt(1);
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String difficulty = cursor.getString(cursor.getColumnIndex("difficulty"));
+            int typ = cursor.getInt(cursor.getColumnIndex("type"));
             viewHolder.difficultyView.setText(context.getResources().getString(R.string.exercise_difficulty).replace("$VALUE",difficulty));
             viewHolder.nameView.setText(name);
             viewHolder.poseView.setImageResource(this.exerciseIcons[typ - 1]);
 
-            //Cursor toolsCursor = context.getContentResolver().query( Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"),null,null,null,null);
-            //Log.d("Simon",toolsCursor.getColumnName(toolsCursor.getColumnIndex("tools")));
+            viewHolder.tool1.setVisibility(View.GONE);
+            viewHolder.tool2.setVisibility(View.GONE);
+            viewHolder.tool3.setVisibility(View.GONE);
+            viewHolder.tool4.setVisibility(View.GONE);
+
+            ContentResolver cr = context.getContentResolver();
+            Cursor toolsCursor = cr.query(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"), null, null, null, null);
+
+            for (int i = 0;  i < toolsCursor.getCount(); i++)
+            {
+                toolsCursor.moveToNext();
+                switch (toolsCursor.getInt(toolsCursor.getColumnIndex("tool")))
+                {
+                    case 1:
+                        viewHolder.tool1.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        viewHolder.tool2.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        viewHolder.tool3.setVisibility(View.VISIBLE);
+                        break;
+                    case 4:
+                        viewHolder.tool4.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
         else
         {
@@ -105,5 +138,9 @@ public class ExerciseCursorAdapter extends CursorAdapter {
         private ImageView poseView;
         public TextView nameView;
         public TextView difficultyView;
+        public ImageView tool1;
+        public ImageView tool2;
+        public ImageView tool3;
+        public ImageView tool4;
     }
 }

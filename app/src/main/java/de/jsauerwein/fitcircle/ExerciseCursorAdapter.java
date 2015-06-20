@@ -103,7 +103,7 @@ public class ExerciseCursorAdapter extends CursorAdapter {
 
             ContentResolver cr = context.getContentResolver();
             Cursor toolsCursor = cr.query(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"), null, null, null, null);
-
+            
             for (int i = 0;  i < toolsCursor.getCount(); i++)
             {
                 toolsCursor.moveToNext();

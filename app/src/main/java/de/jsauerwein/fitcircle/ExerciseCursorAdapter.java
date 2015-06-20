@@ -103,26 +103,26 @@ public class ExerciseCursorAdapter extends CursorAdapter {
 
             ContentResolver cr = context.getContentResolver();
             Cursor toolsCursor = cr.query(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"), null, null, null, null);
-            
-            for (int i = 0;  i < toolsCursor.getCount(); i++)
-            {
-                toolsCursor.moveToNext();
-                switch (toolsCursor.getInt(toolsCursor.getColumnIndex("tool")))
-                {
-                    case 1:
-                        viewHolder.tool1.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
-                        viewHolder.tool2.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        viewHolder.tool3.setVisibility(View.VISIBLE);
-                        break;
-                    case 4:
-                        viewHolder.tool4.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        break;
+
+            if (toolsCursor != null) {
+                for (int i = 0; i < toolsCursor.getCount(); i++) {
+                    toolsCursor.moveToNext();
+                    switch (toolsCursor.getInt(toolsCursor.getColumnIndex("tool"))) {
+                        case 1:
+                            viewHolder.tool1.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            viewHolder.tool2.setVisibility(View.VISIBLE);
+                            break;
+                        case 3:
+                            viewHolder.tool3.setVisibility(View.VISIBLE);
+                            break;
+                        case 4:
+                            viewHolder.tool4.setVisibility(View.VISIBLE);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 

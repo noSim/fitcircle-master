@@ -50,14 +50,21 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
 
         cursorAdapter = new ExerciseCursorAdapter(this.getActivity(),null,0);
         exerciseList.setAdapter(cursorAdapter);
-
         getLoaderManager().initLoader(0, null, this);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(0,null,this);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.workout_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

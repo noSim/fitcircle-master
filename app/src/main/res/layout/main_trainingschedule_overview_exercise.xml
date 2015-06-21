@@ -95,5 +95,17 @@
                     android:background="@color/blue"
                     />
         </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/main_trainingschedule_last_time_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/main_trainingschedule_workout_type"
+        android:layout_below="@id/main_trainingschedule_util_type"
+        android:text="@string/lastTimeDone"
+        android:padding="4dp"
+        />
+
 </RelativeLayout>
 </FrameLayout>

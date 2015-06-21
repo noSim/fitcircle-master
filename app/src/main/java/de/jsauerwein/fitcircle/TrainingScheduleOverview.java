@@ -2,6 +2,7 @@ package de.jsauerwein.fitcircle;
 
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -94,6 +95,9 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
             case R.id.play:
                 isPlaying = true;
                 getActivity().invalidateOptionsMenu();
+                ContentValues values = new ContentValues();
+                values.put(ExerciseTable.COLUMN_DATE, "131441");
+                getActivity().getContentResolver().update(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/1"),values, null, null );
                 break;
             case R.id.pause:
                 isPlaying = false;

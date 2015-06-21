@@ -12,6 +12,9 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * Created by Simon on 12.06.2015.
  */
@@ -81,6 +84,7 @@ public class ExerciseCursorAdapter extends CursorAdapter {
         viewHolder.tool2 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_expander);
         viewHolder.tool3 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_ball);
         viewHolder.tool4 = (ImageView) view.findViewById(R.id.main_trainingschedule_tool_chair);
+        viewHolder.lastExercised = (TextView)  view.findViewById(R.id.main_trainingschedule_last_time_done);
         view.setTag(viewHolder);
         return view;
     }
@@ -89,9 +93,10 @@ public class ExerciseCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         if (cursor != null && cursor.getColumnCount() >= 4) {
-            String name = cursor.getString(cursor.getColumnIndex("name"));
-            String difficulty = cursor.getString(cursor.getColumnIndex("difficulty"));
-            int typ = cursor.getInt(cursor.getColumnIndex("type"));
+            String name = cursor.getString(cursor.getColumnIndex(ExerciseTable.COLUMN_NAME));
+            String difficulty = cursor.getString(cursor.getColumnIndex(ExerciseTable.COLUMN_DIFFICULTY));
+            int typ = cursor.getInt(cursor.getColumnIndex(ExerciseTable.COLUMN_TYPE));
+            int date = cursor.getInt(cursor.getColumnIndex(ExerciseTable.COLUMN_DATE));
             viewHolder.difficultyView.setText(context.getResources().getString(R.string.exercise_difficulty).replace("$VALUE",difficulty));
             viewHolder.nameView.setText(name);
             viewHolder.poseView.setImageResource(this.exerciseIcons[typ - 1]);
@@ -100,9 +105,21 @@ public class ExerciseCursorAdapter extends CursorAdapter {
             viewHolder.tool2.setVisibility(View.GONE);
             viewHolder.tool3.setVisibility(View.GONE);
             viewHolder.tool4.setVisibility(View.GONE);
+            if (date < 0)
+            {
+                viewHolder.lastExercised.setText(viewHolder.lastExercised.getText().toString().replace("$DATE", " - "));
+
+            }
+            else
+            {
+                Date jDate = new Date();
+                jDate.setTime(((long)date) * 1000);
+                String dateString = DateFormat.getDateInstance(DateFormat.SHORT).format(jDate) + " " + DateFormat.getTimeInstance(DateFormat.SHORT).format(jDate);
+                viewHolder.lastExercised.setText(context.getResources().getString(R.string.lastTimeDone).replace("$DATE",dateString));
+            }
 
             ContentResolver cr = context.getContentResolver();
-            Cursor toolsCursor = cr.query(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex("_id")) + "/tools"), null, null, null, null);
+            Cursor toolsCursor = cr.query(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/" + cursor.getString(cursor.getColumnIndex(ExerciseTable.COLUMN_ID)) + "/tools"), null, null, null, null);
 
             if (toolsCursor != null) {
                 for (int i = 0; i < toolsCursor.getCount(); i++) {
@@ -138,6 +155,7 @@ public class ExerciseCursorAdapter extends CursorAdapter {
         private ImageView poseView;
         public TextView nameView;
         public TextView difficultyView;
+        public TextView lastExercised;
         public ImageView tool1;
         public ImageView tool2;
         public ImageView tool3;

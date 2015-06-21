@@ -13,13 +13,15 @@ public class ExerciseTable {
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DIFFICULTY = "difficulty";
+    public static final String COLUMN_DATE = "date";
 
     private static final String DATABASE_CREATE = "create table "
             + TABLE_EXERCISES
             + "(" + COLUMN_ID  + " integer primary key autoincrement, "
             + COLUMN_NAME + " text not null,"
             + COLUMN_TYPE + " text not null,"
-            + COLUMN_DIFFICULTY + " text not null"
+            + COLUMN_DIFFICULTY + " text not null,"
+            + COLUMN_DATE + " Integer"
             +");";
 
 
@@ -45,7 +47,7 @@ public class ExerciseTable {
     {
         return ("INSERT INTO "
             + TABLE_EXERCISES
-            + " (" + COLUMN_NAME + "," + COLUMN_TYPE + "," + COLUMN_DIFFICULTY + ")"
-            + " VALUES ('" + exercise + "', '" + type + "','" + difficulty + "');");
+            + " (" + COLUMN_NAME + "," + COLUMN_TYPE + "," + COLUMN_DIFFICULTY +"," + COLUMN_DATE + ")"
+            + " VALUES ('" + exercise + "', '" + type + "','" + difficulty + "','-1');");
     }
 }

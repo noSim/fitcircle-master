@@ -17,5 +17,6 @@
     <string name="add_exercise_tool_ball">Ball</string>
     <string name="add_exercise_tool_chair">Chair</string>
     <string name="add_exercise_button_txt">Add Exercise</string>
+    <string name="lastTimeDone">Last Exercised: $DATE</string>
 
 </resources>

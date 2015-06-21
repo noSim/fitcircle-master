@@ -8,6 +8,7 @@ import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -73,8 +74,20 @@ public class TrainingScheduleProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        switch(TrainingScheduleContract.URI_MATCHER.match(uri)) {
+            case TrainingScheduleContract.EXERCISE_LIST_SINGLE_ITEM:
+                String id = uri.getLastPathSegment();
+                SQLiteDatabase db = database.getWritableDatabase();
+                int numberOfRowsAffected;
+                if (TextUtils.isEmpty(selection)) {
+                    numberOfRowsAffected = db.update(ExerciseTable.TABLE_EXERCISES, values, ExerciseTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    numberOfRowsAffected = db.update(ExerciseTable.TABLE_EXERCISES, values, ExerciseTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                return numberOfRowsAffected;
+            default:
+                throw new UnsupportedOperationException("Not yet implemented");
+        }
     }
 
     @Override

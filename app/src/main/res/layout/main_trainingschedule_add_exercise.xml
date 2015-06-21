@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
+            android:isScrollContainer="true"
             tools:context="de.jsauerwein.fitcircle.AddExercise">
 
             <TextView
@@ -93,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tool2_expander"
                 android:drawableLeft="@drawable/tool3"
-                android:text="@string/add_exercise_tool_ball" />
+                android:text="@string/add_exercise_tool_ball"/>
 
             <CheckBox
                 android:id="@+id/tool4_chair"
@@ -101,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tool3_ball"
                 android:drawableLeft="@drawable/tool4"
-                android:text="@string/add_exercise_tool_chair" />
+                android:text="@string/add_exercise_tool_chair"
+                android:layout_marginBottom="70dp"/>
 
 
         </RelativeLayout>

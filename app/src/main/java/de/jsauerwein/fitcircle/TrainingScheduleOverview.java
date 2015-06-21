@@ -27,6 +27,7 @@ import java.util.List;
 public class TrainingScheduleOverview extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ExerciseCursorAdapter cursorAdapter;
+    private boolean isPlaying;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,12 +69,36 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (isPlaying)
+        {
+            menu.findItem(R.id.play).setVisible(false);
+            menu.findItem(R.id.pause).setVisible(true);
+        }
+        else
+        {
+            menu.findItem(R.id.play).setVisible(true);
+            menu.findItem(R.id.pause).setVisible(false);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.add:
                 Intent add = new Intent(AppContract.BROADCAST_ACTION_WORKOUT);
                 add.putExtra(InteractionModel.TAG_CURRENT_FRAGMENT, InteractionModel.WORKOUT_ADDING);
                 LocalBroadcastManager.getInstance(this.getActivity()).sendBroadcast(add);
+                break;
+            case R.id.play:
+                isPlaying = true;
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.pause:
+                isPlaying = false;
+                getActivity().invalidateOptionsMenu();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

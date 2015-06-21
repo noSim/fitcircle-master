@@ -105,10 +105,9 @@ public class ExerciseCursorAdapter extends CursorAdapter {
             viewHolder.tool2.setVisibility(View.GONE);
             viewHolder.tool3.setVisibility(View.GONE);
             viewHolder.tool4.setVisibility(View.GONE);
-            if (date < 0)
+            if (date <= 0)
             {
-                viewHolder.lastExercised.setText(viewHolder.lastExercised.getText().toString().replace("$DATE", " - "));
-
+                viewHolder.lastExercised.setText(" - ");
             }
             else
             {

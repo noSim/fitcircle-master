@@ -35,6 +35,7 @@ public class TrainingScheduleProvider extends ContentProvider {
                 id  = db.insert(ExerciseToolsTable.TABLE_EXERCISE_TOOLS, null, values);
                 break;
         }
+        getContext().getContentResolver().notifyChange(uri,null);
         return Uri.parse(uri + "/" + id);
     }
 
@@ -51,7 +52,7 @@ public class TrainingScheduleProvider extends ContentProvider {
 
                 Cursor cursor = queryBuilder.query(db, projection, selection,
                         selectionArgs, null, null, sortOrder);
-                cursor.setNotificationUri(getContext().getContentResolver(), uri);
+                getContext().getContentResolver().notifyChange(uri, null);
                 return cursor;
             case TrainingScheduleContract.EXERCISE_TOOL_LIST:
                 List<String> pathSegments = uri.getPathSegments();
@@ -63,8 +64,7 @@ public class TrainingScheduleProvider extends ContentProvider {
 
                 Cursor toolsCursor = queryToolsBuilder.query(db, projection, selection,
                         selectionArgs, null, null, sortOrder);
-                toolsCursor.setNotificationUri(getContext().getContentResolver(), uri);
-
+                getContext().getContentResolver().notifyChange(uri,null);
                 return toolsCursor;
             default:
                 throw new UnsupportedOperationException("Resource not support.");
@@ -84,6 +84,7 @@ public class TrainingScheduleProvider extends ContentProvider {
                 } else {
                     numberOfRowsAffected = db.update(ExerciseTable.TABLE_EXERCISES, values, ExerciseTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
                 }
+                getContext().getContentResolver().notifyChange(uri,null);
                 return numberOfRowsAffected;
             default:
                 throw new UnsupportedOperationException("Not yet implemented");

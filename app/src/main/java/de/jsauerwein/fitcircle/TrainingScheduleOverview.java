@@ -6,12 +6,15 @@ import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.*;
 import android.view.animation.Transformation;
@@ -29,6 +32,7 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
 
     private ExerciseCursorAdapter cursorAdapter;
     private boolean isPlaying;
+    private ContentObserver observer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +58,21 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
         exerciseList.setAdapter(cursorAdapter);
         getLoaderManager().initLoader(0, null, this);
 
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getLoaderManager().restartLoader(0,null,this);
+        getLoaderManager().restartLoader(0, null, this);
+        observer = new DataObserver(new Handler());
+        getActivity().getContentResolver().registerContentObserver(TrainingScheduleContract.Exercises.CONTENT_URI, true, observer);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().getContentResolver().unregisterContentObserver(observer);
     }
 
     @Override
@@ -96,7 +109,7 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
                 isPlaying = true;
                 getActivity().invalidateOptionsMenu();
                 ContentValues values = new ContentValues();
-                values.put(ExerciseTable.COLUMN_DATE, "131441");
+                values.put(ExerciseTable.COLUMN_DATE, System.currentTimeMillis()/1000);
                 getActivity().getContentResolver().update(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/1"),values, null, null );
                 break;
             case R.id.pause:
@@ -123,6 +136,37 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         cursorAdapter.swapCursor(null);
+    }
+
+    public void restartLoader()
+    {
+        getLoaderManager().restartLoader(0,null,this);
+    }
+
+    public class DataObserver extends android.database.ContentObserver{
+
+        /**
+         * Creates a content observer.
+         *
+         * @param handler The handler to run {@link #onChange} on, or null if none.
+         */
+        public DataObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange, uri);
+            if (TrainingScheduleContract.URI_MATCHER.match(uri) == TrainingScheduleContract.EXERCISE_LIST_SINGLE_ITEM) {
+               restartLoader();
+            }
+        }
     }
 
 }

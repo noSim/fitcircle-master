@@ -56,8 +56,8 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.workout_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.workout_menu, menu);
     }
 
     @Override

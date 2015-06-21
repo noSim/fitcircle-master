@@ -24,15 +24,14 @@ public class TrainingScheduleProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         long id = 0;
+        SQLiteDatabase db = database.getWritableDatabase();
         switch(TrainingScheduleContract.URI_MATCHER.match(uri))
         {
             case TrainingScheduleContract.EXERCISE_LIST:
-                SQLiteDatabase db = database.getWritableDatabase();
                 id  = db.insert(ExerciseTable.TABLE_EXERCISES, null, values);
                 break;
             case TrainingScheduleContract.EXERCISE_TOOL_LIST:
-                //TODO implement
-
+                id  = db.insert(ExerciseToolsTable.TABLE_EXERCISE_TOOLS, null, values);
                 break;
         }
         return Uri.parse(uri + "/" + id);

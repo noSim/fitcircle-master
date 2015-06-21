@@ -7,4 +7,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="exercise_difficulty">Difficulty: $VALUE</string>
 
+    <!-- Add Exercise Fragment -->
+    <string name="add_exercise_name">Exercise name:</string>
+    <string name="add_exercise_type">Exercise type:</string>
+    <string name="add_exercise_difficulty">Difficulty:</string>
+    <string name="add_exercise_tools">Tools:</string>
+    <string name="add_exercise_tool_mat">Mat</string>
+    <string name="add_exercise_tool_expander">Expander</string>
+    <string name="add_exercise_tool_ball">Ball</string>
+    <string name="add_exercise_tool_chair">Chair</string>
+    <string name="add_exercise_button_txt">Add Exercise</string>
+
 </resources>

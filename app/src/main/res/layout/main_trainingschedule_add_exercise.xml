@@ -1,13 +1,111 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="de.jsauerwein.fitcircle.AddExercise">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            tools:context="de.jsauerwein.fitcircle.AddExercise">
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/add_exercise_name" />
+
+            <EditText
+                android:id="@+id/edit_txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/txt_name" />
+
+            <TextView
+                android:id="@+id/txt_exercise_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/edit_txt_name"
+                android:text="@string/add_exercise_type" />
+
+            <EditText
+                android:id="@+id/edit_txt_exercise_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/txt_exercise_type" />
+
+            <TextView
+                android:id="@+id/txt_exercise_difficulty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/edit_txt_exercise_type"
+                android:text="@string/add_exercise_difficulty" />
+
+            <EditText
+                android:id="@+id/edit_txt_difficulty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/txt_exercise_difficulty" />
+
+            <TextView
+                android:id="@+id/txt_tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/edit_txt_difficulty"
+                android:text="@string/add_exercise_tools" />
+
+            <CheckBox
+                android:id="@+id/tool1_matt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_tools"
+                android:drawableLeft="@drawable/tool1"
+                android:text="@string/add_exercise_tool_mat" />
+
+            <CheckBox
+                android:id="@+id/tool2_expander"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tool1_matt"
+                android:drawableLeft="@drawable/tool2"
+                android:text="@string/add_exercise_tool_expander" />
+
+            <CheckBox
+                android:id="@+id/tool3_ball"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tool2_expander"
+                android:drawableLeft="@drawable/tool3"
+                android:text="@string/add_exercise_tool_ball" />
+
+            <CheckBox
+                android:id="@+id/tool4_chair"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tool3_ball"
+                android:drawableLeft="@drawable/tool4"
+                android:text="@string/add_exercise_tool_chair" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="bottom"
+        android:text="@string/add_exercise_button_txt" />
 </FrameLayout>

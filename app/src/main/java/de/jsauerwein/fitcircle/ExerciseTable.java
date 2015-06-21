@@ -22,19 +22,30 @@ public class ExerciseTable {
             + COLUMN_DIFFICULTY + " text not null"
             +");";
 
-    private static final String DATABASE_FILL = "INSERT INTO "
-            + TABLE_EXERCISES
-            + " (" + COLUMN_NAME + "," + COLUMN_TYPE + "," + COLUMN_DIFFICULTY + ")"
-            + " VALUES ('Exercise 1', '3','2');" ;
 
     public static void onCreate(SQLiteDatabase db) {
         Log.d("Simon", "db Created");
         db.execSQL(DATABASE_CREATE);
-        db.execSQL(DATABASE_FILL);
+        db.execSQL(insertSQL("Exercise 3", "3" , "2"));
+        db.execSQL(insertSQL("Exercise 14", "14" , "2"));
+        db.execSQL(insertSQL("Exercise 21", "21" , "5"));
+        db.execSQL(insertSQL("Exercise 28", "28" , "3"));
+        db.execSQL(insertSQL("Exercise 39", "39" , "7"));
+        db.execSQL(insertSQL("Exercise 41", "41" , "7"));
+        db.execSQL(insertSQL("Exercise 44", "44" , "4"));
+        db.execSQL(insertSQL("Exercise 45", "45" , "8"));
     }
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISES);
         onCreate(db);
+    }
+
+    private static String insertSQL(String exercise, String type, String difficulty)
+    {
+        return ("INSERT INTO "
+            + TABLE_EXERCISES
+            + " (" + COLUMN_NAME + "," + COLUMN_TYPE + "," + COLUMN_DIFFICULTY + ")"
+            + " VALUES ('" + exercise + "', '" + type + "','" + difficulty + "');");
     }
 }

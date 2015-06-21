@@ -16,17 +16,17 @@ public class ExercisesDatabaseHelper extends SQLiteOpenHelper{
 
     public ExercisesDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("Simon", "Constructor Database Helper called");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("Simon", "onCreate Database Helper");
         ExerciseTable.onCreate(db);
+        ExerciseToolsTable.onCreate(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         ExerciseTable.onUpgrade(db,oldVersion,newVersion);
+        ExerciseToolsTable.onUpgrade(db,oldVersion,newVersion);
     }
 }

@@ -2,12 +2,14 @@ package de.jsauerwein.fitcircle;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -125,5 +127,20 @@ public class TrainingScheduleProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown columns in projection");
             }
         }
+    }
+
+    @Override
+    public Bundle call(String method, String arg, Bundle extras) {
+        if (method.equals("startPlayScheduleService"))
+        {
+            startPlayScheduleService();
+        }
+        return super.call(method, arg, extras);
+    }
+
+    private void startPlayScheduleService()
+    {
+        Intent mServiceIntent = new Intent(getContext(), PlayScheduleService.class);
+        getContext().startService(mServiceIntent);
     }
 }

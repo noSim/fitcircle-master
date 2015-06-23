@@ -107,10 +107,8 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
                 break;
             case R.id.play:
                 isPlaying = true;
+                getActivity().getContentResolver().call(TrainingScheduleContract.Exercises.CONTENT_URI, "startPlayScheduleService", null, null);
                 getActivity().invalidateOptionsMenu();
-                ContentValues values = new ContentValues();
-                values.put(ExerciseTable.COLUMN_DATE, System.currentTimeMillis()/1000);
-                getActivity().getContentResolver().update(Uri.parse("content://de.jsauerwein.fitcircle.schedule/exercises/1"),values, null, null );
                 break;
             case R.id.pause:
                 isPlaying = false;
@@ -122,14 +120,12 @@ public class TrainingScheduleOverview extends Fragment implements LoaderManager.
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.d("Simon", "loader creating");
         Uri baseUri =  TrainingScheduleContract.Exercises.CONTENT_URI;
         return new CursorLoader(this.getActivity(), baseUri, null, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d("Simon", "load finished");
         cursorAdapter.swapCursor(data);
     }
 

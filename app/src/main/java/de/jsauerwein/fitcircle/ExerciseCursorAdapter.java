@@ -74,7 +74,6 @@ public class ExerciseCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        Log.d("Simon","new view in CursorAdpater");
         View view = LayoutInflater.from(context).inflate(R.layout.main_trainingschedule_overview_exercise, parent, false);
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.poseView = (ImageView) view.findViewById(R.id.main_trainingschedule_workout_type);
@@ -143,11 +142,6 @@ public class ExerciseCursorAdapter extends CursorAdapter {
             }
 
         }
-        else
-        {
-            Log.d("Simon", "cursor null");
-        }
-
     }
 
     private static class ViewHolder {

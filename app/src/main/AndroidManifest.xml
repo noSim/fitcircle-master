@@ -31,6 +31,12 @@
             android:enabled="false"
             android:exported="false" >
         </receiver>
+
+        <service
+            android:name=".PlayScheduleService"
+            android:exported="false"/>
+
+
     </application>
 
 </manifest>
